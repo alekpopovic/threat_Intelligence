@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ThreatIntelligence
-  class Configuration
+  class Config
     attr_accessor :virustotal_api_key,
       :abuseipdb_api_key,
       :urlscan_api_key,
@@ -26,19 +26,19 @@ module ThreatIntelligence
   end
 
   class << self
-    attr_writer :configuration
+    attr_writer :config
 
-    def configuration
-      @configuration ||= Configuration.new
+    def config
+      @config ||= Config.new
     end
 
     def configure
-      yield(configuration)
+      yield(config)
     end
 
     def logger
       @logger ||= Logger.new($stdout).tap do |log|
-        log.level = configuration.log_level
+        log.level = config.log_level
       end
     end
   end
