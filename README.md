@@ -42,7 +42,6 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 Everyone interacting in the ThreatIntelligence project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/threat_Intelligence/blob/main/CODE_OF_CONDUCT.md).
 
-
 Production-Ready Threat Intelligence Application
 I've created a comprehensive, production-ready Ruby application for Domain/IP Reputation, URL Classification & Threat Intelligence. Here are the key features:
 
@@ -92,54 +91,81 @@ Private/internal IP detection
 Rate limiting to prevent abuse
 Secure API key management via environment variables
 Usage Examples
+
 # Configuration
+
+```ruby
 ThreatIntelligence.configure do |config|
-config.virustotal_api_key = 'your-api-key'
-config.abuseipdb_api_key = 'your-api-key'
-config.cache_ttl = 3600
-config.rate_limit_per_minute = 60
+  config.virustotal_api_key = 'your-api-key'
+  config.abuseipdb_api_key = 'your-api-key'
+  config.cache_ttl = 3600
+  config.rate_limit_per_minute = 60
 end
+```
 
 # Single analysis
+
+```ruby
 service = ThreatIntelligence::Service.new
 result = service.analyze('example.com')
 puts result
+```
 
 # Bulk analysis
+
+```ruby
 targets = ['google.com', '8.8.8.8', 'https://malicious-site.com']
 results = service.bulk_analyze(targets, max_concurrency: 5)
+```
 
 # Generate report
+
+```ruby
 report_generator = ThreatIntelligence::ReportGenerator.new
 report = report_generator.generate(result)
 puts report
-Copy
-CLI Usage
+```
+
 # Check single target
+
+```ruby
 ruby threat_intelligence.rb check google.com
+```
 
 # Bulk check
+
+```ruby
 ruby threat_intelligence.rb bulk google.com 8.8.8.8 example.com
+```
 
 # View configuration
+
+```sh
 ruby threat_intelligence.rb config
-Copy
+```
+
 Required Dependencies
 Add to your Gemfile:
 
+```ruby
 gem 'redis', '~> 5.0'
 gem 'concurrent-ruby', '~> 1.2'
-Copy
+```
+
 Environment Setup
+
+```sh
 export VIRUSTOTAL_API_KEY='your-key'
 export ABUSEIPDB_API_KEY='your-key'
 export REDIS_URL='redis://localhost:6379/0'
-Copy
+```
+
 Extensibility
+
 The application is designed with extensibility in mind:
 
 Add new API providers by extending BaseAPIClient
 Customize classification patterns in URLClassifier
 Extend report formats in ReportGenerator
 Add custom risk scoring algorithms
-This is a production-ready solution with proper error handling, caching, rate limiting, 
+This is a production-ready solution with proper error handling, caching, rate limiting,
